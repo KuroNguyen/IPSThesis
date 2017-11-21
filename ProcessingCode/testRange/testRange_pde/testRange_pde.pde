@@ -21,6 +21,6 @@ void oscEvent(OscMessage m) {
   m.print();
   str = m.get(0).stringValue();
   print(str);
-  k = float(str);
-  print(k);
+//  k = float(str);
+//  print(k);
 }  

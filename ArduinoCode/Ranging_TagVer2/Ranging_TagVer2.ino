@@ -47,7 +47,7 @@ void newRange() {
   }
   else str = '3';
   str += String(DW1000Ranging.getDistantDevice()->getRange());
-  str += String(DW1000Ranging.getDistantDevice()->getRXPower());
+  //str += String(DW1000Ranging.getDistantDevice()->getRXPower());
   str += '\n';
   Serial.print(str);  
 //  Serial.print("from: "); Serial.print(DW1000Ranging.getDistantDevice()->getShortAddress());
