@@ -18,39 +18,90 @@ double[][] vals = {
     7., 8., 10.
   }
 };
-Jama.Matrix A = new Jama.Matrix(vals);
-Jama.Matrix k = A.transpose();
-float xA1, xA2, xA3, yA1, yA2, yA3;
-int xpos = 100;
-int xspace = 40;
+// Matrix stuff
+//Jama.Matrix A = new Jama.Matrix(vals);
+//Jama.Matrix k = A.transpose();
 
+// 3 color for 3 anchor
 color color1 = color(198, 181, 232);
 color color2 = color(137, 185, 197);
 color color3 = color(235, 241, 251);
 
+// Create text field to input anchor's position
+float xA1, xA2, xA3, yA1, yA2, yA3;    // Position of anchors
+int xpos = 100;
+int xspace = 40;
 point_loca mypoint_loca_1;
 point_loca mypoint_loca_2;
 point_loca mypoint_loca_3;
 
+//Create font
+PFont font1 = createFont("Cambria Bold", 15, false);
+PFont font2 = createFont("Georgia", 20, false);
 
+//Operating Mode
+int Mode = 0;  //Mode = 0: Anchor position setting; Mode = 1: Positioning Operation
+
+//PImage bg = loadImage("back.png");
 void setup()
 {
-  background(0);
+  //Load background
+  PImage bg = loadImage("back.png");
   size(1000, 600);
-
-  PFont font1 = createFont("Cambria Bold", 15);
-  PFont font2 = createFont("Georgia", 20);
-
+  background(bg);
+  
+  //Add controlP5
   cp5 = new ControlP5(this);
 
   //                   point_loca(color , xpos      , ypos, textField, textCaption, labelName, labelText, font)
   mypoint_loca_1 = new point_loca(color1, xpos, 300, "A1", "Anchor 1", "1", "A1", font1);
   mypoint_loca_2 = new point_loca(color2, xpos + 300, 300, "A2", "Anchor 2", "2", "A2", font1);
   mypoint_loca_3 = new point_loca(color3, xpos + 600, 300, "A3", "Anchor 3", "3", "A3", font1);
+  
+  // Create Done button
+  PImage[] img_Done = {loadImage("Done_a.png"),loadImage("Done_b.png"),loadImage("Done_c.png")};
+  cp5.addButton("Done")
+     .setPosition(800,500)
+     .setImages(img_Done)
+     .updateSize()
+     ;
+     
+  // Create Back button
+  PImage[] img_Back = {loadImage("Back_a.png"),loadImage("Back_b.png"),loadImage("Back_c.png")};
+  cp5.addButton("Back")
+     .setPosition(800,500)
+     .setImages(img_Back)
+     .updateSize()
+     .hide()
+     ;     
 }
 void draw()
 {
-  background(0);
+  switch(Mode)
+  {
+    // Anchor position setting
+    case 0:
+      PImage bg = loadImage("back.png");
+      background(bg);
+      mypoint_loca_1.turnOn();
+      mypoint_loca_2.turnOn();
+      mypoint_loca_3.turnOn();
+      cp5.getController("Done").show();
+      cp5.getController("Back").hide();
+      break;
+    case 1:
+      background(255);
+      frameRate(30);
+      // Turn off loca
+      mypoint_loca_1.turnOff();
+      mypoint_loca_2.turnOff();
+      mypoint_loca_3.turnOff();
+      cp5.getController("Done").hide();
+      cp5.getController("Back").show();
+      break;
+  }
+//  background(0);
+//  mypoint_loca_3.turnOff();
 }
 void controlEvent(ControlEvent theEvent) 
 {
@@ -97,4 +148,23 @@ void controlEvent(ControlEvent theEvent)
       mypoint_loca_3.setTextY("YA3: "+yA3);
     }
   }
+}
+public void Done()
+{
+  println("ahihi");
+  double[][] valA = {{xA2-xA1,yA2-yA1},{xA3-xA1,yA3-yA1}};
+  Jama.Matrix A = new Jama.Matrix(valA); 
+  Jama.Matrix AT = A.transpose();
+  Jama.Matrix ATA= AT.times(A);
+  Jama.Matrix C = ATA.inverse();
+  A.print(5,2);
+  AT.print(5,2);
+  ATA.print(5,2);
+  C.print(5,2);
+  Mode =1;
+}
+public void Back()
+{
+  println("ahuhu");
+  Mode =0;
 }

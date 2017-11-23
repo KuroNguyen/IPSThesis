@@ -64,4 +64,18 @@ class point_loca
   {
     cp5.getController("yLabel"+labelName).getValueLabel().setText(text);
   }
+  void turnOff()
+  {
+    cp5.getController("X"+textField).setVisible(false);
+    cp5.getController("Y"+textField).setVisible(false);
+    cp5.getController("xLabel"+labelName).setVisible(false);
+    cp5.getController("yLabel"+labelName).setVisible(false);
+  }
+  void turnOn()
+  {
+    cp5.getController("X"+textField).setVisible(true);
+    cp5.getController("Y"+textField).setVisible(true);
+    cp5.getController("xLabel"+labelName).setVisible(true);
+    cp5.getController("yLabel"+labelName).setVisible(true);
+  }
 }
