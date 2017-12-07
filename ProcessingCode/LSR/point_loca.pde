@@ -21,7 +21,7 @@ class point_loca
     // Textfield for X
     cp5.addTextfield("X"+textField)
        .setPosition(tempXpos,tempYpos)
-       .setSize(50,20)
+       .setSize(80,30)
        .setFont(font)
        .setFocus(true)
        .setColor(c)
@@ -29,18 +29,25 @@ class point_loca
     cp5.getController("X"+textField).getCaptionLabel().setFont(font);
     cp5.getController("X"+textField).getCaptionLabel().setColor(c);
     cp5.getController("X"+textField).getCaptionLabel().setText("X of " + textCaption);
+    // Parameter label
+    cp5.addTextlabel("paraLabelA"+labelName)
+       .setText("( m )")
+       .setPosition(tempXpos + 90,tempYpos)
+       .setColorValue(c)
+       .setFont(font)
+       ;
     // Label for X
     cp5.addTextlabel("xLabel"+labelName)
        .setText("X"+labelText+": ")
        .setPosition(tempXpos,tempYpos + 100)
-       .setColorValue(0xffffff00)
+       .setColorValue(c)
        .setFont(font)
        ;
-    
+            
     // Textfield for Y
     cp5.addTextfield("Y"+textField)
-       .setPosition(tempXpos+120,tempYpos)
-       .setSize(50,20)
+       .setPosition(tempXpos+170,tempYpos)
+       .setSize(80,30)
        .setFont(font)
        .setFocus(true)
        .setColor(c)
@@ -48,13 +55,21 @@ class point_loca
     cp5.getController("Y"+textField).getCaptionLabel().setFont(font);
     cp5.getController("Y"+textField).getCaptionLabel().setColor(c);
     cp5.getController("Y"+textField).getCaptionLabel().setText("Y of " + textCaption);
+    // Parameter label
+    cp5.addTextlabel("paraLabelB"+labelName)
+       .setText("( m )")
+       .setPosition(tempXpos + 170 + 90 ,tempYpos)
+       .setColorValue(c)
+       .setFont(font)
+       ;
     // Label for Y
     cp5.addTextlabel("yLabel"+labelName)
        .setText("Y"+labelText+": ")
-       .setPosition(tempXpos+120,tempYpos + 100)
-       .setColorValue(0xffffff00)
+       .setPosition(tempXpos+170,tempYpos + 100)
+       .setColorValue(c)
        .setFont(font)
        ;
+       
   }
   void setTextX(String text)
   {
@@ -70,6 +85,8 @@ class point_loca
     cp5.getController("Y"+textField).setVisible(false);
     cp5.getController("xLabel"+labelName).setVisible(false);
     cp5.getController("yLabel"+labelName).setVisible(false);
+    cp5.getController("paraLabelA"+labelName).setVisible(false);
+    cp5.getController("paraLabelB"+labelName).setVisible(false);
   }
   void turnOn()
   {
@@ -77,5 +94,7 @@ class point_loca
     cp5.getController("Y"+textField).setVisible(true);
     cp5.getController("xLabel"+labelName).setVisible(true);
     cp5.getController("yLabel"+labelName).setVisible(true);
+    cp5.getController("paraLabelA"+labelName).setVisible(true);
+    cp5.getController("paraLabelB"+labelName).setVisible(true);
   }
 }

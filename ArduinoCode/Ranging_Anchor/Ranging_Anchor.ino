@@ -12,11 +12,7 @@
 const uint8_t PIN_RST = 9; // reset pin
 const uint8_t PIN_IRQ = 2; // irq pin
 const uint8_t PIN_SS = SS; // spi select pin
-
-//****My frame*****//
 String str;
-//****End my frame****//
-
 void setup() {
   Serial.begin(115200);
   delay(1000);
@@ -30,8 +26,7 @@ void setup() {
   DW1000Ranging.useRangeFilter(true);
   
   //we start the module as an anchor
-  DW1000Ranging.startAsAnchor("02:00:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY,0);
-  delay(2000);
+  DW1000Ranging.startAsAnchor("03:17:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY);
 }
 
 void loop() {
@@ -39,25 +34,13 @@ void loop() {
 }
 
 void newRange() {
-  //Serial.print("from: "); 
-  //Serial.print(DW1000Ranging.getDistantDevice()->getShortAddress(), HEX);
-  
-  //Serial.print("\t Range: "); 
-  //Serial.print(DW1000Ranging.getDistantDevice()->getRange()); 
-  //Serial.print(" m");
-  
-  //Serial.print("\t RX power: "); 
-  //Serial.print(DW1000Ranging.get  str = '1';
-//  str += String(DW1000Ranging.getDistantDevice()->getRange());
-//  //str += '*';
-//  str += String(DW1000Ranging.getDistantDevice()->getRXPower());
-//  str += '\n';
-//  Serial.print(str);DistantDevice()->getRXPower()); 
-  //Serial.println(" dBm");
-  //************Send string data to esp8266************//
-  //str = '!';
-//
-  //************End send string data to esp8266************//
+  str = String(DW1000Ranging.getDistantDevice()->getRange());
+  str += String(DW1000Ranging.getDistantDevice()->getRXPower());
+  str += '\n';
+  Serial.print(str); 
+//  Serial.print("from: "); Serial.print(DW1000Ranging.getDistantDevice()->getShortAddress(), HEX);
+//  Serial.print("\t Range: "); Serial.print(DW1000Ranging.getDistantDevice()->getRange()); Serial.print(" m");
+//  Serial.print("\t RX power: "); Serial.print(DW1000Ranging.getDistantDevice()->getRXPower()); Serial.println(" dBm");
 }
 
 void newBlink(DW1000Device* device) {
